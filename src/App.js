@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
 
-function App() {
+import Layout from "./components/Layout/Layout";
+import {
+  Route,
+  Switch,
+  withRouter,
+  HashRouter,
+  Redirect,
+} from "react-router-dom";
+
+const PitchDeckList = React.lazy(() => import("./components/PitchDeck/List"));
+const NewPitchDeck = React.lazy(() =>
+  import("./components/PitchDeck/NewPitchDeck")
+);
+
+const App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/" exact component={PitchDeckList} />
+          <Route path="/add" component={NewPitchDeck} />
+        </Suspense>
+      </Switch>
+    </Layout>
   );
-}
+};
 
-export default App;
+export default withRouter(App);
