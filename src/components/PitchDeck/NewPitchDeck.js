@@ -4,6 +4,8 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import FileForm from "./FileForm";
 import axios from "axios";
+import { Link, withRouter } from "react-router-dom";
+import { PITCHDECK } from "./constants";
 
 const NewPitchDeck = ({
   values,
@@ -22,6 +24,19 @@ const NewPitchDeck = ({
 
   return (
     <div className="uk-padding-small">
+      <div className="uk-grid uk-child-width-expand uk-margin" uk-grid="">
+        <div>
+          <span className="uk-h3">New Pitch</span>
+        </div>
+        <div className="uk-width-auto">
+          <Link
+            to="/"
+            className="uk-button uk-button-default uk-button-small uk-text-capitalize uk-text-primary "
+          >
+            Goto List
+          </Link>
+        </div>
+      </div>
       <Form className="uk-form-stacked">
         <div className={"uk-child-width-1-2@m uk-grid-small"} uk-grid={1}>
           <div>
@@ -82,7 +97,7 @@ const NewPitchDeck = ({
             className={[
               "uk-width-1-1",
               touched.description && errors.description
-                ? " uk-form-danger"
+                ? " tm-border-danger"
                 : "",
             ].join(" ")}
           >
@@ -125,7 +140,6 @@ const FormikNewAppointment = withFormik({
     }),
     description: Yup.string().required(),
     company: Yup.string().required(),
-    // highlight: Yup.string().required(),
     title: Yup.string().required(),
   }),
   handleSubmit(values, { props, resetForm, setErrors, setSubmitting }) {
@@ -135,15 +149,16 @@ const FormikNewAppointment = withFormik({
     });
 
     axios
-      .post("http://localhost:8000/v1/pitchdeck/", formData, {
+      .post(PITCHDECK, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then(({ data }) => {
+        props.history.push(`/${data._id}`);
         setSubmitting(false);
       });
   },
 })(NewPitchDeck);
 
-export default FormikNewAppointment;
+export default withRouter(FormikNewAppointment);

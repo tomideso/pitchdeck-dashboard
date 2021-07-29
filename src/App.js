@@ -1,28 +1,24 @@
 import React, { Suspense } from "react";
 
 import Layout from "./components/Layout/Layout";
-import {
-  Route,
-  Switch,
-  withRouter,
-  HashRouter,
-  Redirect,
-} from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 
 const PitchDeckList = React.lazy(() => import("./components/PitchDeck/List"));
 const NewPitchDeck = React.lazy(() =>
   import("./components/PitchDeck/NewPitchDeck")
 );
+const PitchDeck = React.lazy(() => import("./components/PitchDeck/PitchDeck"));
 
 const App = (props) => {
   return (
     <Layout>
-      <Switch>
-        <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
           <Route path="/" exact component={PitchDeckList} />
           <Route path="/add" component={NewPitchDeck} />
-        </Suspense>
-      </Switch>
+          <Route path="/:id" component={PitchDeck} />
+        </Switch>
+      </Suspense>
     </Layout>
   );
 };

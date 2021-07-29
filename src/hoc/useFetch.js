@@ -1,6 +1,7 @@
+import axios from "@/../node_modules/axios/index";
 import { useEffect, useState } from "react";
 
-const useFetch = ({ url, type = [], httpClient, method = "GET", body }) => {
+const useFetch = ({ url, type = [] }) => {
   const [data, setData] = useState(type);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
@@ -8,12 +9,7 @@ const useFetch = ({ url, type = [], httpClient, method = "GET", body }) => {
   const [refresh, setRefresh] = useState(0);
 
   const fetchData = () => {
-    switch (true) {
-      case /post/i.test(method):
-        return httpClient.post(url, body);
-      default:
-        return httpClient.get(url);
-    }
+    return axios.get(url).then(({ data }) => data);
   };
 
   useEffect(() => {
@@ -42,7 +38,7 @@ const useFetch = ({ url, type = [], httpClient, method = "GET", body }) => {
     return () => {
       unmounted = true;
     };
-  }, [url, body, refresh]);
+  }, [url, refresh]);
 
   const reFetch = () => {
     setRefresh((n) => n + 1);

@@ -13,7 +13,7 @@ const FileForm = ({ handleFileChange: setFile }) => {
   };
 
   return (
-    <div className="uk-form-stacked uk-padding-small ">
+    <div>
       <FileUpload
         text="Add a PDF by dropping one here"
         accept=".pdf"

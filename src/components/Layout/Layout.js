@@ -1,16 +1,10 @@
 import React from "react";
-import classes from "./Layout.css";
 
 const layout = ({ children }) => {
   return (
     <React.Fragment>
-      <section
-        className="uk-container-expand "
-        uk-height-viewport="expand: true"
-      >
-        <main id="layout" className={classes.Content}>
-          {children}
-        </main>
+      <section className="uk-container" uk-height-viewport="expand: true">
+        <main className="uk-flex uk-flex-center">{children}</main>
       </section>
       <div
         style={{ padding: "2px" }}
