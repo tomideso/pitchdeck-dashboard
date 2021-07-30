@@ -16,3 +16,8 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 It is assumed this dashboard and the API will be run and tested on the same local machine.
+
+## Environment Variables
+
+Add a `.env` file to the root folder of this project.
+A sample `.env_sample` has been included

@@ -6,8 +6,35 @@ import { PITCHDECK } from "./constants";
 const List = () => {
   const { data, status } = useFetch({ url: PITCHDECK });
 
-  return status == "complete" ? (
-    <div>
+  const render =
+    status == "complete" ? (
+      <div>
+        {data.length ? (
+          <dl class="uk-description-list uk-description-list-divider">
+            {data.map(({ _id, title, description, company }) => (
+              <React.Fragment key={_id}>
+                <dt>
+                  <Link to={"/" + _id}>
+                    <strong>{company}: </strong>
+                    {title}
+                  </Link>
+                </dt>
+                <dd>{description}</dd>
+              </React.Fragment>
+            ))}
+          </dl>
+        ) : (
+          <div>No Pitch added yet</div>
+        )}
+      </div>
+    ) : status == "error" ? (
+      <div>Error Fetching data</div>
+    ) : (
+      <div>Loading</div>
+    );
+
+  return (
+    <>
       <div>
         <span className="uk-text-lead">Pitch List</span>
         {"  "}
@@ -17,29 +44,9 @@ const List = () => {
         >
           Add new
         </Link>
+        {render}
       </div>
-      {data.length ? (
-        <dl class="uk-description-list uk-description-list-divider">
-          {data.map(({ _id, title, description, company }) => (
-            <React.Fragment key={_id}>
-              <dt>
-                <Link to={"/" + _id}>
-                  <strong>{company}: </strong>
-                  {title}
-                </Link>
-              </dt>
-              <dd>{description}</dd>
-            </React.Fragment>
-          ))}
-        </dl>
-      ) : (
-        <div>No Pitch added yet</div>
-      )}
-    </div>
-  ) : status == "error" ? (
-    <div>Error Fetching data</div>
-  ) : (
-    <div>Loading</div>
+    </>
   );
 };
 

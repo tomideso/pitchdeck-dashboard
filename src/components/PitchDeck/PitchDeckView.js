@@ -19,7 +19,7 @@ const PitchDeckView = ({
       >
         {imageUrl.map((val) => (
           <div>
-            <img src={`${BASE_URL}${val}`} className={"uk-width-1-1"} />
+            <img src={`${BASE_URL}${val}`} />
           </div>
         ))}
       </div>
