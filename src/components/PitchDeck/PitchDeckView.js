@@ -24,7 +24,7 @@ const PitchDeckView = ({
         ))}
       </div>
       <div>
-        <a href={fileUrl} download={title}>
+        <a href={`${BASE_URL}${fileUrl}`} download={title}>
           Download {title} pdf
         </a>
       </div>

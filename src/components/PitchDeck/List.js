@@ -24,7 +24,7 @@ const List = () => {
             <React.Fragment key={_id}>
               <dt>
                 <Link to={"/" + _id}>
-                  <strong>{company}:</strong>
+                  <strong>{company}: </strong>
                   {title}
                 </Link>
               </dt>
